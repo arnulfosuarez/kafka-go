@@ -8,6 +8,7 @@ require (
 	github.com/golang/snappy v0.0.1
 	github.com/klauspost/compress v1.9.8
 	github.com/pierrec/lz4 v2.6.0+incompatible
+	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.6.1
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c
 	github.com/xdg/stringprep v1.0.0 // indirect

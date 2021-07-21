@@ -2,7 +2,6 @@ package kafka
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -13,6 +12,8 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
 var (
@@ -891,7 +892,7 @@ func (c *Conn) ReadBatchWith(cfg ReadBatchConfig) *Batch {
 		// as such, any io.EOF is re-mapped to an io.ErrUnexpectedEOF so that we
 		// don't accidentally signal that we successfully reached the end of the
 		// batch.
-		err: dontExpectEOF(err),
+		err: errors.WithStack(dontExpectEOF(err)),
 	}
 }
 

@@ -10,6 +10,8 @@ import (
 	"reflect"
 	"sync"
 	"sync/atomic"
+
+	"github.com/pkg/errors"
 )
 
 type discarder interface {
@@ -158,7 +160,7 @@ func (d *decoder) writeTo(w io.Writer, n int) {
 	}
 	c, err := io.Copy(w, d)
 	if int(c) < n && err == nil {
-		err = io.ErrUnexpectedEOF
+		err = errors.WithStack(io.ErrUnexpectedEOF)
 	}
 	d.remain = limit - int(c)
 	d.setError(err)

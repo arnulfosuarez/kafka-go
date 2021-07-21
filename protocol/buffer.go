@@ -7,6 +7,8 @@ import (
 	"math"
 	"sync"
 	"sync/atomic"
+
+	"github.com/pkg/errors"
 )
 
 // Bytes is an interface implemented by types that represent immutable
@@ -155,7 +157,7 @@ func (p *page) ReadFrom(r io.Reader) (int64, error) {
 		err = nil
 	}
 	p.length += n
-	return int64(n), err
+	return int64(n), errors.WithStack(err)
 }
 
 func (p *page) WriteAt(b []byte, off int64) (int, error) {

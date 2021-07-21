@@ -7,6 +7,8 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 // Message is an interface implemented by all request and response types of the
@@ -369,7 +371,7 @@ func dontExpectEOF(err error) error {
 	case nil:
 		return nil
 	case io.EOF:
-		return io.ErrUnexpectedEOF
+		return errors.WithStack(io.ErrUnexpectedEOF)
 	default:
 		return err
 	}

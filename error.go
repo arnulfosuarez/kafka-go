@@ -1,10 +1,11 @@
 package kafka
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"syscall"
+
+	"github.com/pkg/errors"
 )
 
 // Error represents the different error codes that may be returned by kafka.
@@ -526,7 +527,7 @@ func dontExpectEOF(err error) error {
 	if err == io.EOF {
 		err = io.ErrUnexpectedEOF
 	}
-	return err
+	return errors.WithStack(err)
 }
 
 func coalesceErrors(errs ...error) error {
